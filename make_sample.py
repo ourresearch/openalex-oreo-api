@@ -51,6 +51,8 @@ async def _fetch_random_sample(
     }
     if sample_type in {"walden", "walden-only"}:
         params["data-version"] = "2"
+    else:
+        params["data-version"] = "1"
 
     if sample_scope == "last-week":
         last_week_str = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
@@ -104,6 +106,8 @@ async def _ids_present_in(
     }
     if walden:
         params["data-version"] = "2"
+    else:
+        params["data-version"] = "1"
 
     data = await _fetch_json(session, url, params=params)
     return {extract_id(item["id"]) for item in data.get("results", [])}

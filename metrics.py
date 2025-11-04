@@ -97,7 +97,7 @@ async def fetch_ids(session, ids, entity, store, is_v2):
         try:
             # Extract the part after the last "/" if present, otherwise use the full id
             short_ids = [id.split("/")[-1] if "/" in id else id for id in ids]
-            api_url = f"{api_endpoint}{entity}?filter={id_filter_field(entity)}:{'|'.join(short_ids)}&per_page=100{'&data-version=2' if is_v2 else ''}"
+            api_url = f"{api_endpoint}{entity}?filter={id_filter_field(entity)}:{'|'.join(short_ids)}&per_page=100&data-version={'2' if is_v2 else '1'}"
 
             async with session.get(api_url) as response:
                 if response.status == 200:
@@ -468,7 +468,7 @@ async def get_entity_counts():
     async with aiohttp.ClientSession(headers=headers) as session:
         tasks = []
         for entity in samples.keys():
-            tasks.append(get_entity_count(session, api_endpoint + entity, entity, "prod"))
+            tasks.append(get_entity_count(session, api_endpoint + entity + "?data-version=1", entity, "prod"))
             tasks.append(get_entity_count(session, api_endpoint + entity + "?data-version=2", entity, "walden"))       
         await asyncio.gather(*tasks)
 
