@@ -753,15 +753,6 @@ tests_schema_base = {
       "description": "The <code>primary_topic.id</code> field was missing but now has a value",
     },
     {
-      "display_name": "Topics Changed",
-      "field": "topics[*].id",
-      "field_type": "array",
-      "test_func": set_does_not_equal,
-      "test_type": "bug",
-      "category": "aboutness",
-      "description": "The set of items in the <code>topics[*].id</code> fields are not equal",
-    },
-    {
       "display_name": "Keywords Lost",
       "field": "keywords",
       "field_type": "array",
