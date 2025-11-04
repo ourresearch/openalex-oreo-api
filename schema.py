@@ -149,6 +149,11 @@ def below_5_percent(prod_value, walden_value):
   return prod_value > walden_value and not within_5_percent(prod_value, walden_value)
 
 
+@expects_numbers_feature
+def above_5_percent(prod_value, walden_value):
+  return walden_value > prod_value and not within_5_percent(prod_value, walden_value)
+
+
 @expects_strings_bug
 def length_not_within_5_percent(prod_value, walden_value):
   return not within_5_percent(len(prod_value), len(walden_value))
@@ -877,44 +882,44 @@ entities = [
 
 non_works_tests = [
   {
-    "display_name": "Works Count Decreased",
+    "display_name": "Works Count Decreased (5%)",
     "field": "works_count",
     "field_type": "number",
-    "test_func": less_than,
+    "test_func": below_5_percent,
     "test_type": "bug",
     "category": "works",
     "icon": "mdi-file-document-outline",
-    "description": "The <code>works_count</code> field decreased",
+    "description": "The <code>works_count</code> field decreased by 5% or more",
   },
   {
-    "display_name": "Works Count Increased",
+    "display_name": "Works Count Increased (5%)",
     "field": "works_count",
     "field_type": "number",
-    "test_func": greater_than,
+    "test_func": above_5_percent,
     "test_type": "feature",
     "category": "works",
     "icon": "mdi-file-document-outline",
-    "description": "The <code>works_count</code> field increased",
+    "description": "The <code>works_count</code> field increased by 5% or more",
   },
   {
-    "display_name": "Citation Count Decreased",
+    "display_name": "Citation Count Decreased (5%)",
     "field": "cited_by_count",
     "field_type": "number",
-    "test_func": less_than,
+    "test_func": below_5_percent,
     "test_type": "bug",
     "category": "citations",
     "icon": "mdi-file-document-outline",
-    "description": "The <code>cited_by_count</code> field decreased",
+    "description": "The <code>cited_by_count</code> field decreased by 5% or more",
   },
     {
-    "display_name": "Citation Count Increased",
+    "display_name": "Citation Count Increased (5%)",
     "field": "cited_by_count",
     "field_type": "number",
-    "test_func": greater_than,
+    "test_func": above_5_percent,
     "test_type": "feature",
     "category": "citations",
     "icon": "mdi-file-document-outline",
-    "description": "The <code>cited_by_count</code> field increased",
+    "description": "The <code>cited_by_count</code> field increased by 5% or more",
   }
 ]
 
